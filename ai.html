@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>אושרית הדריה | AI</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="pages.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <a href="index.html" class="back-button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5"/>
+            <path d="M12 19l7-7-7-7"/>
+        </svg>
+        חזרה
+    </a>
+
+    <main class="page">
+        <div class="page-container">
+            <section class="ai-intro" dir="ltr">
+                <h2 class="ai-intro-title reveal-words">AI &amp; Creative Technology</h2>
+                <p class="ai-intro-text reveal-words">Integration of AI throughout the creative process, from concept development and visual exploration to image generation, video, animation, and interactive experiences. A combination of AI, design, storytelling, and technology transforms ideas into distinctive visual worlds and innovative digital experiences.</p>
+            </section>
+
+            <div class="ai-showcase">
+                <div class="ai-video">
+                    <video src="assets/ai/after-lord.mp4" controls loop playsinline preload="metadata"></video>
+                </div>
+                <div class="ai-caption" dir="ltr">
+                    <h3 class="ai-caption-title">Movie Trailer — After Effects</h3>
+                    <p class="ai-caption-text">A cinematic trailer created in After Effects, combining motion, typography, rhythm, and sound to create a powerful visual experience. The project combines editing, animation, and visual effects to build tension, atmosphere, and anticipation — creating an immersive introduction to the film.</p>
+                </div>
+            </div>
+
+            <div class="ai-showcase ai-showcase--left">
+                <div class="ai-caption" dir="ltr">
+                    <h3 class="ai-caption-title">AI Concept Video - Coral Hotel</h3>
+                    <p class="ai-caption-text">A concept video created with AI, transforming an organic material - coral - into an architectural hotel experience. The project combines AI-generated visuals, architecture, and motion to develop the material’s shapes, textures, and structure into a unique visual environment.</p>
+                </div>
+                <div class="ai-video">
+                    <video src="assets/ai/ganuz.mp4" controls loop playsinline preload="metadata"></video>
+                </div>
+            </div>
+
+            <div class="ai-showcase">
+                <div class="ai-video">
+                    <video src="assets/ai/clip-2125.mp4" controls loop playsinline preload="metadata"></video>
+                </div>
+                <div class="ai-caption" dir="ltr">
+                    <h3 class="ai-caption-title">AI Music Video</h3>
+                    <p class="ai-caption-text">A music video created and edited using AI, combining generated visuals, motion, and storytelling into a cohesive visual experience. The project uses AI throughout the creative process - from concept and visual generation to animation and final editing - creating a unique visual world that complements the music.</p>
+                </div>
+            </div>
+
+            <div class="ai-showcase ai-showcase--left">
+                <div class="ai-caption" dir="ltr">
+                    <h3 class="ai-caption-title">AI Commercial - Domino’s Pizza</h3>
+                    <p class="ai-caption-text">A commercial created and edited using AI, combining AI-generated visuals with real brand elements from Domino’s Pizza. The project blends product imagery, recognizable brand identity, motion, and AI-generated environments to create a dynamic and engaging advertising experience.</p>
+                </div>
+                <div class="ai-video">
+                    <video src="assets/ai/dominos.mp4" controls loop playsinline preload="metadata"></video>
+                </div>
+            </div>
+
+            <div class="ai-showcase">
+                <div class="ai-video">
+                    <video src="assets/ai/shoes-ad.mp4" controls loop playsinline preload="metadata"></video>
+                </div>
+                <div class="ai-caption" dir="ltr">
+                    <h3 class="ai-caption-title">AI Commercial - Leave Your Mark</h3>
+                    <p class="ai-caption-text">A concept commercial for a footwear brand, created using AI around the idea of leaving a mark with every step. The project combines AI-generated visuals, movement, and storytelling to transform the footprint into a powerful visual symbol of identity, presence, and impact.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Reveal the intro text word by word when it scrolls into view.
+        (function () {
+            const intro = document.querySelector('.ai-intro');
+            if (!intro) return;
+
+            intro.querySelectorAll('.reveal-words').forEach(function (el) {
+                const words = el.textContent.trim().split(/\s+/);
+                el.textContent = '';
+                words.forEach(function (w) {
+                    const span = document.createElement('span');
+                    span.className = 'word';
+                    span.textContent = w;
+                    el.appendChild(span);
+                    el.appendChild(document.createTextNode(' '));
+                });
+            });
+
+            const words = intro.querySelectorAll('.word');
+            const observer = new IntersectionObserver(function (entries, obs) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        words.forEach(function (w, i) {
+                            w.style.transitionDelay = (i * 0.06) + 's';
+                            w.classList.add('is-visible');
+                        });
+                        obs.disconnect();
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            observer.observe(intro);
+        })();
+    </script>
+</body>
+</html>

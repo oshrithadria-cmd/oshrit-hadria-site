@@ -1,0 +1,380 @@
+/* ===== CSS Variables ===== */
+:root {
+    --bg: #07070b;
+    --card-bg: #d9d9d9;
+    --card-bg-hover: #e8e8e8;
+    --text: #2a2a2a;
+    --radius: 20px;
+    --transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    --font: 'Space Grotesk', sans-serif;
+}
+
+/* ===== Reset & Base ===== */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: var(--font);
+    background: var(--bg);
+    background-image:
+        radial-gradient(120% 80% at 50% 0%, rgba(70, 80, 120, 0.18) 0%, rgba(7, 7, 11, 0) 55%),
+        linear-gradient(180deg, #050507 0%, #0b0c14 45%, #131420 100%);
+    background-attachment: fixed;
+    color: var(--text);
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+    scroll-snap-type: y proximity;
+}
+
+/* ===== Main Layout ===== */
+.main {
+    width: 100%;
+}
+
+/* ===== Hero Video ===== */
+.hero-video-container {
+    width: 100%;
+    height: 68vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    scroll-snap-align: start;
+    position: relative;
+}
+
+.hero-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Soft fade so the video blends into the background */
+.hero-video-container::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 22%;
+    background: linear-gradient(180deg, rgba(11, 12, 20, 0) 0%, #0b0c14 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ===== Carousel ===== */
+.carousel-wrapper {
+    position: relative;
+    width: 100%;
+    height: 58vh;
+    min-height: 560px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1200px;
+    scroll-snap-align: start;
+}
+
+.carousel {
+    position: relative;
+    width: 330px;
+    height: 490px;
+    transform-style: preserve-3d;
+}
+
+/* ===== Card ===== */
+a.card {
+    text-decoration: none;
+    color: inherit;
+}
+
+.card {
+    position: absolute;
+    width: 330px;
+    height: 490px;
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    overflow: hidden;
+    transition: var(--transition);
+    backface-visibility: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    opacity: 0;
+}
+
+.card.active {
+    transform: translateX(0) translateZ(0) rotateY(0);
+    opacity: 1;
+    z-index: 4;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+.card.prev {
+    transform: translateX(-375px) translateZ(-150px) rotateY(25deg);
+    opacity: 0.7;
+    z-index: 3;
+    cursor: pointer;
+}
+
+.card.next {
+    transform: translateX(375px) translateZ(-150px) rotateY(-25deg);
+    opacity: 0.7;
+    z-index: 3;
+    cursor: pointer;
+}
+
+.card.far-prev {
+    transform: translateX(-650px) translateZ(-300px) rotateY(35deg);
+    opacity: 0.35;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.card.far-next {
+    transform: translateX(650px) translateZ(-300px) rotateY(-35deg);
+    opacity: 0.35;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.card.hidden-card {
+    transform: translateX(0) translateZ(-500px);
+    opacity: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* ===== Card Overlay for non-active ===== */
+.card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 3;
+    transition: var(--transition);
+    border-radius: var(--radius);
+}
+
+.card.active::before {
+    background: transparent;
+}
+
+.card.active:hover::before {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* ===== Card Text ===== */
+.card-text {
+    font-size: 1.7rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-align: center;
+    line-height: 1.4;
+    color: var(--text);
+    text-transform: uppercase;
+    transition: var(--transition);
+    user-select: none;
+    position: relative;
+    z-index: 2;
+}
+
+.card.active:hover .card-text {
+    letter-spacing: 4px;
+}
+
+/* ===== Card Video ===== */
+.card-bg-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--radius);
+    opacity: 0.6;
+    transition: opacity 0.6s ease;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.card[data-index="0"] .card-bg-video {
+    object-fit: cover;
+    object-position: calc(50% - 15px) center;
+    inset: 0 -40%;
+    width: 180%;
+}
+
+.card[data-index="2"] .card-bg-video {
+    object-fit: cover;
+    object-position: center center;
+}
+
+.card.active .card-bg-video {
+    opacity: 0.8;
+}
+
+.card.active.card-video:hover .card-bg-video {
+    opacity: 1;
+}
+
+.card.active.card-video,
+.card.active.card-video:hover {
+    background: #111;
+}
+
+.card-video .card-text {
+    position: relative;
+    z-index: 2;
+    transition: var(--transition);
+}
+
+.card.active.card-video .card-text {
+    color: #ffffff;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.7);
+}
+
+/* ===== Carousel Dots ===== */
+.carousel-dots {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.25);
+    cursor: pointer;
+    transition: 0.3s ease;
+    padding: 0;
+}
+
+.dot.active {
+    background: #ffffff;
+    transform: scale(1.2);
+}
+
+.dot:hover {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1200px) {
+    .card.prev {
+        transform: translateX(-330px) translateZ(-120px) rotateY(22deg);
+    }
+    .card.next {
+        transform: translateX(330px) translateZ(-120px) rotateY(-22deg);
+    }
+    .card.far-prev {
+        transform: translateX(-560px) translateZ(-250px) rotateY(30deg);
+        opacity: 0.25;
+    }
+    .card.far-next {
+        transform: translateX(560px) translateZ(-250px) rotateY(-30deg);
+        opacity: 0.25;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-video-container {
+        height: 42vh;
+    }
+
+    .carousel-wrapper {
+        height: auto;
+        min-height: 0;
+        padding: 24px 0 84px;
+        perspective: 900px;
+    }
+
+    .carousel {
+        width: 260px;
+        height: 385px;
+    }
+
+    .card {
+        width: 260px;
+        height: 385px;
+    }
+
+    .card.prev {
+        transform: translateX(-140px) translateZ(-160px) rotateY(22deg);
+        opacity: 0.45;
+    }
+    .card.next {
+        transform: translateX(140px) translateZ(-160px) rotateY(-22deg);
+        opacity: 0.45;
+    }
+    .card.far-prev,
+    .card.far-next {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .card-text {
+        font-size: 1.3rem;
+    }
+
+    .carousel-dots {
+        bottom: 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-video-container {
+        height: 36vh;
+    }
+
+    .carousel-wrapper {
+        padding: 20px 0 76px;
+    }
+
+    .carousel {
+        width: 230px;
+        height: 340px;
+    }
+
+    .card {
+        width: 230px;
+        height: 340px;
+    }
+
+    .card.prev {
+        transform: translateX(-118px) translateZ(-150px) rotateY(20deg);
+        opacity: 0.4;
+    }
+    .card.next {
+        transform: translateX(118px) translateZ(-150px) rotateY(-20deg);
+        opacity: 0.4;
+    }
+
+    .card-text {
+        font-size: 1.15rem;
+        letter-spacing: 1px;
+    }
+
+    .carousel-dots {
+        bottom: 24px;
+    }
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>אושרית הדריה | אתר רשמי</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main class="main">
+        <div class="hero-video-container">
+            <video class="hero-video" src="assets/hero-video.mp4" muted loop autoplay playsinline></video>
+        </div>
+        <div class="carousel-wrapper">
+            <div class="carousel">
+                <a href="ai.html" class="card card-video" data-index="0" data-start-time="28">
+                    <video class="card-bg-video" src="assets/ai-clip.mp4" muted loop playsinline preload="metadata"></video>
+                    <span class="card-text">AI</span>
+                </a>
+                <a href="social-media.html" class="card card-video" data-index="1" data-start-time="4">
+                    <video class="card-bg-video" src="assets/ai-video.mp4" muted loop playsinline preload="metadata"></video>
+                    <span class="card-text">SOCIAL<br>MEDIA</span>
+                </a>
+                <a href="ui-ux.html" class="card card-video" data-index="2" data-speed="0.7" data-duration="10">
+                    <video class="card-bg-video" src="assets/uiux-video.mp4" muted loop playsinline preload="metadata"></video>
+                    <span class="card-text">UI UX</span>
+                </a>
+                <a href="video-games.html" class="card" data-index="3">
+                    <span class="card-text">VIDEO<br>GAMES</span>
+                </a>
+                <a href="cgi-vfx.html" class="card" data-index="4">
+                    <span class="card-text">CGI &<br>VFX</span>
+                </a>
+                <a href="about.html" class="card" data-index="5">
+                    <span class="card-text">ABOUT</span>
+                </a>
+            </div>
+
+            <div class="carousel-dots">
+                <button class="dot active" data-slide="0"></button>
+                <button class="dot" data-slide="1"></button>
+                <button class="dot" data-slide="2"></button>
+                <button class="dot" data-slide="3"></button>
+                <button class="dot" data-slide="4"></button>
+                <button class="dot" data-slide="5"></button>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

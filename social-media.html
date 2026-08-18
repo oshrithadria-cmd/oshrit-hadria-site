@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>אושרית הדריה | Social Media</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="pages.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="font-round">
+    <a href="index.html" class="back-button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5"/>
+            <path d="M12 19l7-7-7-7"/>
+        </svg>
+        חזרה
+    </a>
+
+    <main class="page">
+        <div class="page-container">
+            <section class="ai-intro" dir="ltr">
+                <h2 class="ai-intro-title reveal-words">Social Media &amp; Content Creation</h2>
+                <p class="ai-intro-text reveal-words">Building a strong social media presence through creative, visual, and trend-driven content. Original videos and digital concepts have reached millions of views and attracted thousands of followers, combining creativity, storytelling, AI, and an understanding of what captures attention online.</p>
+            </section>
+
+            <div class="view-counter">
+                <div class="counter-number">
+                    <span class="counter-arrow" aria-hidden="true">&#8593;</span>
+                    <span class="counter-value" data-target="19038606">0</span>
+                </div>
+                <p class="counter-label">Social Media Views</p>
+            </div>
+
+            <div class="video-gallery" id="video-gallery"></div>
+        </div>
+    </main>
+
+    <script>
+        // ===== Intro text: reveal word by word on view =====
+        (function () {
+            const intro = document.querySelector('.ai-intro');
+            if (!intro) return;
+
+            intro.querySelectorAll('.reveal-words').forEach(function (el) {
+                const words = el.textContent.trim().split(/\s+/);
+                el.textContent = '';
+                words.forEach(function (w) {
+                    const span = document.createElement('span');
+                    span.className = 'word';
+                    span.textContent = w;
+                    el.appendChild(span);
+                    el.appendChild(document.createTextNode(' '));
+                });
+
+                // Keep the last two words together so the final word never sits
+                // alone on its own line.
+                const ws = el.querySelectorAll('.word');
+                if (ws.length >= 2) {
+                    const prev = ws[ws.length - 2];
+                    const last = ws[ws.length - 1];
+                    const wrap = document.createElement('span');
+                    wrap.className = 'nowrap';
+                    el.insertBefore(wrap, prev);
+                    wrap.appendChild(prev);
+                    wrap.appendChild(document.createTextNode(' '));
+                    wrap.appendChild(last);
+                }
+            });
+
+            const words = intro.querySelectorAll('.word');
+            const observer = new IntersectionObserver(function (entries, obs) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        words.forEach(function (w, i) {
+                            w.style.transitionDelay = (i * 0.06) + 's';
+                            w.classList.add('is-visible');
+                        });
+                        obs.disconnect();
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            observer.observe(intro);
+        })();
+
+        // ===== Animated view counter =====
+        (function () {
+            const el = document.querySelector('.counter-value');
+            if (!el) return;
+            const target = parseInt(el.dataset.target, 10) || 0;
+            const duration = 3900;
+            const formatter = new Intl.NumberFormat('en-US');
+            const start = performance.now();
+
+            function tick(now) {
+                const progress = Math.min((now - start) / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 2);
+                el.textContent = formatter.format(Math.floor(eased * target));
+                if (progress < 1) {
+                    requestAnimationFrame(tick);
+                } else {
+                    el.textContent = formatter.format(target);
+                }
+            }
+
+            requestAnimationFrame(tick);
+        })();
+
+        // ===== Video gallery =====
+        // To add a video: drop the .mp4 file in assets/social/ and add a line below.
+        const videos = [
+            { src: 'assets/social/video-1.mp4', views: 2621000, likes: 100967, comments: 4173, shares: 62846 },
+            { src: 'assets/social/video-2.mp4', views: 1935585, likes: 69900, comments: 3744, shares: 51400 },
+            { src: 'assets/social/video-3.mp4', views: 1138200, likes: 34800, comments: 2086, shares: 27200 },
+            { src: 'assets/social/video-4.mp4', views: 36000, likes: 522, comments: 32, shares: 230 },
+            { src: 'assets/social/video-5.mp4', views: 889800, likes: 12736, comments: 351, shares: 6330 },
+            { src: 'assets/social/video-6.mp4', views: 349100, likes: 17580, comments: 690, shares: 8563 },
+            { src: 'assets/social/video-7.mp4', views: 948000, likes: 45600, comments: 2491, shares: 25798 },
+            { src: 'assets/social/video-8.mp4', views: 7179737, likes: 165970, comments: 10340, shares: 202903 },
+            { src: 'assets/social/video-9.mp4', views: 20700, likes: 451, comments: 22, shares: 257 },
+            { src: 'assets/social/video-10.mp4', views: 26900, likes: 837, comments: 133, shares: 363 },
+            { src: 'assets/social/video-11.mp4', views: 31334, likes: 771, comments: 5, shares: 35 },
+            { src: 'assets/social/video-12.mp4', views: 27500, likes: 727, comments: 41, shares: 137 },
+            { src: 'assets/social/video-13.mp4', views: 176600, likes: 5364, comments: 351, shares: 5995 },
+            { src: 'assets/social/video-14.mp4', views: 67700, likes: 9598, shares: 1651 },
+            { src: 'assets/social/video-15.mp4', views: 197973, likes: 8020, comments: 362, shares: 6214 },
+            { src: 'assets/social/video-16.mp4', views: 1201349, likes: 22836, comments: 1319, shares: 13841 },
+            { src: 'assets/social/video-17.mp4', views: 1771801, likes: 76486, comments: 551, shares: 65519 }
+        ];
+
+        (function () {
+            const gallery = document.getElementById('video-gallery');
+            if (!gallery) return;
+            const fmt = new Intl.NumberFormat('en-US');
+
+            const icons = {
+                views: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>',
+                likes: '<svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>',
+                comments: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>',
+                shares: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>'
+            };
+
+            const ctrlIcons = {
+                play: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>',
+                pause: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>',
+                soundOn: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a9 9 0 0 1 0 14"/></svg>',
+                soundOff: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M23 9l-6 6M17 9l6 6"/></svg>'
+            };
+
+            function statHTML(key, value, extraClass) {
+                if (!value) return '';
+                return '<span class="stat"><span class="stat-icon ' + (extraClass || '') + '">' + icons[key] + '</span>' + fmt.format(value) + '</span>';
+            }
+
+            // Shared sound preference across all videos. Starts muted because
+            // browsers block autoplay-with-sound until the user interacts once.
+            let globalMuted = true;
+            const players = [];
+
+            function applyMuteToAll() {
+                players.forEach(p => {
+                    p.video.muted = globalMuted;
+                    p.muteBtn.innerHTML = globalMuted ? ctrlIcons.soundOff : ctrlIcons.soundOn;
+                    p.muteBtn.setAttribute('aria-label', globalMuted ? 'Unmute' : 'Mute');
+                });
+            }
+
+            const sortedVideos = videos.slice().sort((a, b) => (b.views || 0) - (a.views || 0));
+
+            sortedVideos.forEach((v, i) => {
+                const card = document.createElement('div');
+                card.className = 'video-card';
+                card.style.animationDelay = (0.1 * i + 0.3) + 's';
+                card.innerHTML =
+                    '<div class="video-frame">' +
+                        '<video src="' + v.src + '" loop playsinline preload="metadata"></video>' +
+                        '<div class="video-controls">' +
+                            '<button class="vc-btn vc-play" aria-label="Play"></button>' +
+                            '<button class="vc-btn vc-mute" aria-label="Unmute"></button>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="video-stats">' +
+                        statHTML('views', v.views) +
+                        statHTML('likes', v.likes, 'stat-heart') +
+                        statHTML('comments', v.comments) +
+                        statHTML('shares', v.shares) +
+                    '</div>';
+
+                const video = card.querySelector('video');
+                const playBtn = card.querySelector('.vc-play');
+                const muteBtn = card.querySelector('.vc-mute');
+
+                const player = { video, playBtn, muteBtn, isCentered: false, userPaused: false };
+                players.push(player);
+
+                video.muted = globalMuted;
+                playBtn.innerHTML = ctrlIcons.play;
+                muteBtn.innerHTML = ctrlIcons.soundOff;
+
+                function tryPlay() {
+                    video.muted = globalMuted;
+                    const p = video.play();
+                    if (p && p.catch) {
+                        p.catch(() => {
+                            // Sound autoplay blocked -> fall back to muted playback
+                            if (!globalMuted) {
+                                globalMuted = true;
+                                applyMuteToAll();
+                                video.play().catch(() => {});
+                            }
+                        });
+                    }
+                }
+
+                function updatePlayback() {
+                    if (player.isCentered && !player.userPaused) {
+                        tryPlay();
+                    } else {
+                        video.pause();
+                    }
+                }
+                player.updatePlayback = updatePlayback;
+
+                video.addEventListener('play', () => { playBtn.innerHTML = ctrlIcons.pause; });
+                video.addEventListener('pause', () => { playBtn.innerHTML = ctrlIcons.play; });
+
+                playBtn.addEventListener('click', () => {
+                    player.userPaused = !video.paused;
+                    updatePlayback();
+                });
+
+                muteBtn.addEventListener('click', () => {
+                    globalMuted = !globalMuted;
+                    applyMuteToAll();
+                    if (!video.paused) video.play().catch(() => {});
+                });
+
+                gallery.appendChild(card);
+            });
+
+            // Play whichever video sits in the central band of the viewport.
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const player = players.find(p => p.video === entry.target);
+                    if (!player) return;
+                    player.isCentered = entry.isIntersecting;
+                    if (!entry.isIntersecting) player.userPaused = false;
+                    player.updatePlayback();
+                });
+            }, { rootMargin: '-30% 0px -30% 0px', threshold: 0.2 });
+
+            players.forEach(p => observer.observe(p.video));
+        })();
+    </script>
+</body>
+</html>
