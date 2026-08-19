@@ -417,6 +417,33 @@ body.font-round {
     white-space: nowrap;
 }
 
+/* About page */
+.about-intro {
+    max-width: 820px;
+    text-align: left;
+    margin-top: 40px;
+}
+
+.about-intro .ai-intro-title {
+    margin-bottom: 28px;
+}
+
+.about-p {
+    margin-bottom: 1.3em;
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.about-p:last-child {
+    margin-bottom: 0;
+}
+
+.about-p.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
 .ai-intro .word {
     display: inline-block;
     opacity: 0;

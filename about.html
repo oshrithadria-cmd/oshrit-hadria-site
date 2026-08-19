@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <a href="index.html" class="back-button">
@@ -21,9 +22,54 @@
 
     <main class="page">
         <div class="page-container">
-            <h1 class="page-title">ABOUT</h1>
-            <p class="page-subtitle">תוכן העמוד בקרוב...</p>
+            <section class="ai-intro about-intro" dir="ltr">
+                <h2 class="ai-intro-title reveal-words">About Me</h2>
+                <p class="ai-intro-text about-p">A multidisciplinary designer and digital creator working across Visual Communication, UI/UX, AI, CGI, VFX, video editing, animation, and creative technology. The work spans a wide range of creative fields - from commercials, music videos, cinematic content, and script development to digital experiences, websites, apps, and game design.</p>
+                <p class="ai-intro-text about-p">The creative process combines design, storytelling, motion, and emerging technologies to take an idea from its initial concept to a complete visual experience. Whether creating a CGI environment, developing visual effects, editing a music video, designing a digital product, building a game concept, or producing an AI-powered commercial - each project is an opportunity to create a new world and tell a story in a different way.</p>
+                <p class="ai-intro-text about-p">With a strong interest in film, advertising, gaming, and digital experiences, the focus is on combining creativity and technology to produce work that feels immersive, innovative, and visually distinctive.</p>
+            </section>
         </div>
     </main>
+
+    <script>
+        // Reveal the About title word by word, then fade in the paragraphs.
+        (function () {
+            const intro = document.querySelector('.ai-intro');
+            if (!intro) return;
+
+            intro.querySelectorAll('.reveal-words').forEach(function (el) {
+                const words = el.textContent.trim().split(/\s+/);
+                el.textContent = '';
+                words.forEach(function (w) {
+                    const span = document.createElement('span');
+                    span.className = 'word';
+                    span.textContent = w;
+                    el.appendChild(span);
+                    el.appendChild(document.createTextNode(' '));
+                });
+            });
+
+            const words = intro.querySelectorAll('.word');
+            const paras = intro.querySelectorAll('.about-p');
+            const observer = new IntersectionObserver(function (entries, obs) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        words.forEach(function (w, i) {
+                            w.style.transitionDelay = (i * 0.05) + 's';
+                            w.classList.add('is-visible');
+                        });
+                        const base = words.length * 0.05;
+                        paras.forEach(function (p, i) {
+                            p.style.transitionDelay = (base + i * 0.25) + 's';
+                            p.classList.add('is-visible');
+                        });
+                        obs.disconnect();
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            observer.observe(intro);
+        })();
+    </script>
 </body>
 </html>
