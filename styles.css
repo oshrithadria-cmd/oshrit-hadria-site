@@ -278,6 +278,75 @@ a.card {
     background: rgba(255, 255, 255, 0.6);
 }
 
+/* ===== Site Footer ===== */
+.site-footer {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 44px 24px 38px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(7, 7, 11, 0.55);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+}
+
+.footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+}
+
+.footer-name {
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1.15rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.footer-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 26px;
+}
+
+.footer-nav a {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-size: 0.92rem;
+    letter-spacing: 1.5px;
+    transition: color 0.25s ease;
+}
+
+.footer-nav a:hover {
+    color: #ffffff;
+}
+
+.footer-copy {
+    color: rgba(255, 255, 255, 0.38);
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+}
+
+@media (max-width: 480px) {
+    .site-footer {
+        padding: 34px 16px 30px;
+    }
+
+    .footer-nav {
+        gap: 8px 18px;
+    }
+
+    .footer-nav a {
+        font-size: 0.85rem;
+    }
+}
+
 /* ===== Responsive ===== */
 
 /* Large / wide desktops: give the hero a touch more presence */
