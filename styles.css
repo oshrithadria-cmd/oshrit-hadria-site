@@ -279,6 +279,22 @@ a.card {
 }
 
 /* ===== Responsive ===== */
+
+/* Large / wide desktops: give the hero a touch more presence */
+@media (min-width: 1600px) {
+    .hero-video-container {
+        height: 72vh;
+    }
+    .carousel {
+        width: 360px;
+        height: 535px;
+    }
+    .card {
+        width: 360px;
+        height: 535px;
+    }
+}
+
 @media (max-width: 1200px) {
     .card.prev {
         transform: translateX(-330px) translateZ(-120px) rotateY(22deg);
@@ -293,6 +309,37 @@ a.card {
     .card.far-next {
         transform: translateX(560px) translateZ(-250px) rotateY(-30deg);
         opacity: 0.25;
+    }
+}
+
+/* Tablets */
+@media (max-width: 1024px) {
+    .hero-video-container {
+        height: 58vh;
+    }
+    .carousel-wrapper {
+        height: 54vh;
+        min-height: 480px;
+        perspective: 1000px;
+    }
+    .carousel,
+    .card {
+        width: 300px;
+        height: 445px;
+    }
+    .card.prev {
+        transform: translateX(-280px) translateZ(-130px) rotateY(22deg);
+    }
+    .card.next {
+        transform: translateX(280px) translateZ(-130px) rotateY(-22deg);
+    }
+    .card.far-prev {
+        transform: translateX(-470px) translateZ(-260px) rotateY(30deg);
+        opacity: 0.2;
+    }
+    .card.far-next {
+        transform: translateX(470px) translateZ(-260px) rotateY(-30deg);
+        opacity: 0.2;
     }
 }
 
@@ -376,5 +423,60 @@ a.card {
 
     .carousel-dots {
         bottom: 24px;
+    }
+}
+
+/* Very small phones */
+@media (max-width: 360px) {
+    .carousel,
+    .card {
+        width: 210px;
+        height: 310px;
+    }
+    .card.prev {
+        transform: translateX(-104px) translateZ(-140px) rotateY(18deg);
+    }
+    .card.next {
+        transform: translateX(104px) translateZ(-140px) rotateY(-18deg);
+    }
+    .card-text {
+        font-size: 1.05rem;
+    }
+}
+
+/* Short / landscape phones: shrink the hero so the carousel stays reachable */
+@media (max-height: 560px) and (orientation: landscape) {
+    body {
+        scroll-snap-type: none;
+    }
+    .hero-video-container {
+        height: 78vh;
+    }
+    .carousel-wrapper {
+        height: auto;
+        min-height: 0;
+        padding: 24px 0 72px;
+        perspective: 900px;
+    }
+    .carousel,
+    .card {
+        width: 190px;
+        height: 285px;
+    }
+    .card.prev {
+        transform: translateX(-150px) translateZ(-150px) rotateY(20deg);
+        opacity: 0.4;
+    }
+    .card.next {
+        transform: translateX(150px) translateZ(-150px) rotateY(-20deg);
+        opacity: 0.4;
+    }
+    .card.far-prev,
+    .card.far-next {
+        opacity: 0;
+        pointer-events: none;
+    }
+    .card-text {
+        font-size: 1.1rem;
     }
 }

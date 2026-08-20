@@ -112,7 +112,7 @@ body.has-bg-video {
     position: absolute;
     left: 0;
     top: 0;
-    width: clamp(320px, 42vw, 600px);
+    width: clamp(260px, 44vw, 560px);
     aspect-ratio: 16 / 10;
     transform: translate(-50%, -50%);
     border-radius: 16px;
@@ -172,6 +172,12 @@ body.has-bg-video {
 /* Rounded font applied per-page */
 body.font-round {
     font-family: 'Quicksand', var(--font);
+}
+
+/* Safety: media should never force horizontal scrolling on small screens */
+img,
+video {
+    max-width: 100%;
 }
 
 /* ===== Page Layout ===== */
@@ -519,6 +525,25 @@ body.font-round {
     text-align: left;
 }
 
+/* ===== Tablets ===== */
+@media (max-width: 1024px) {
+    .page {
+        padding: 72px 28px 56px;
+    }
+
+    .ai-showcase {
+        gap: 32px;
+    }
+
+    .ai-video {
+        width: min(640px, 92vw);
+    }
+
+    .diag-card {
+        width: clamp(240px, 52vw, 440px);
+    }
+}
+
 /* ===== Mobile / Responsive ===== */
 @media (max-width: 768px) {
     .page {
@@ -566,6 +591,16 @@ body.font-round {
         line-height: 1.7;
     }
 
+    .ai-caption-title,
+    .ai-caption-text {
+        text-align: center;
+    }
+
+    .about-intro {
+        text-align: left;
+        margin-top: 24px;
+    }
+
     .video-gallery {
         margin-top: 40px;
         gap: 20px;
@@ -573,6 +608,33 @@ body.font-round {
 
     .video-card {
         width: min(320px, 100%);
+    }
+
+    /* Diagonal glass carousel: smaller cards + shorter scroll on phones */
+    .diag-card {
+        width: min(80vw, 340px);
+        border-radius: 14px;
+    }
+
+    .diag-card-title {
+        font-size: clamp(0.8rem, 3.6vw, 1.1rem);
+        padding: 10px 10px 12px;
+        letter-spacing: 1.5px;
+    }
+
+    .scrub-spacer {
+        height: 220vh;
+    }
+
+    .scroll-hint {
+        bottom: 18px;
+        font-size: 0.72rem;
+        letter-spacing: 2px;
+    }
+
+    .scroll-hint svg {
+        width: 18px;
+        height: 18px;
     }
 }
 
@@ -587,5 +649,25 @@ body.font-round {
 
     .stat {
         font-size: 0.85rem;
+    }
+
+    .video-card {
+        width: 100%;
+        max-width: 340px;
+    }
+
+    .diag-card {
+        width: min(86vw, 300px);
+    }
+}
+
+/* Very small phones */
+@media (max-width: 360px) {
+    .page {
+        padding: 72px 10px 36px;
+    }
+
+    .diag-card {
+        width: 90vw;
     }
 }
