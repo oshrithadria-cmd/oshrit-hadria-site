@@ -129,7 +129,10 @@
             ];
 
             const CARD_COUNT = sites.length;
-            const GAP = 0.42;   // spacing between cards along the track (bigger = more gap)
+            // Spacing between cards along the track (bigger = more gap). Tighter
+            // on phones, where the smaller cards otherwise leave big empty gaps.
+            const isMobile = window.matchMedia('(max-width: 768px)').matches;
+            const GAP = isMobile ? 0.24 : 0.42;
             const TRAVEL = 1 + (CARD_COUNT - 1) * GAP; // scroll distance so all cards pass
             // Path endpoints just off-screen (card centre, in vw / vh)
             const START_X = 112, START_Y = 120; // off bottom-right
