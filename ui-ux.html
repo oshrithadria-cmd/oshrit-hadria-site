@@ -13,7 +13,7 @@
 </head>
 <body class="has-bg-video">
     <div class="page-bg-video">
-        <video id="scrub-video" src="assets/ui-ux/bg-scrub.mp4" muted playsinline preload="auto"></video>
+        <video id="scrub-video" data-src="assets/ui-ux/bg-scrub.mp4" muted playsinline preload="auto"></video>
     </div>
 
     <a href="index.html" class="back-button">
@@ -102,6 +102,15 @@
                     try { video.currentTime = START_TIME; } catch (e) {}
                     ready = true;
                 });
+
+                // Load the whole clip into memory as a Blob so scrubbing
+                // (seeking to arbitrary times on scroll) is always smooth and
+                // does not depend on the host supporting HTTP range requests.
+                const srcUrl = video.getAttribute('data-src');
+                fetch(srcUrl)
+                    .then(function (r) { return r.blob(); })
+                    .then(function (b) { video.src = URL.createObjectURL(b); })
+                    .catch(function () { video.src = srcUrl; });
             }
 
             // ----- Diagonal glass carousel -----
