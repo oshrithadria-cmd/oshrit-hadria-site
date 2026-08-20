@@ -169,6 +169,84 @@ body.has-bg-video {
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
 }
 
+/* ===== Floating cards (UI/UX) ===== */
+.float-field {
+    margin-top: 72px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 44px 52px;
+    width: 100%;
+}
+
+.float-card {
+    position: relative;
+    width: clamp(240px, 26vw, 340px);
+    aspect-ratio: 16 / 10;
+    border-radius: 16px;
+    overflow: hidden;
+    text-decoration: none;
+    background-color: #07070b;
+    background-size: cover;
+    background-position: center;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    animation: floatBob 6s ease-in-out infinite;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease, scale 0.3s ease;
+    will-change: transform;
+}
+
+.float-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 35%, rgba(0, 0, 0, 0.75) 100%);
+}
+
+.float-card:hover {
+    scale: 1.04;
+    border-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 26px 70px rgba(0, 0, 0, 0.6);
+}
+
+/* Lift alternating cards so the group looks scattered in the air */
+.float-card:nth-child(even) {
+    margin-top: 46px;
+}
+
+.float-card:nth-child(3n) {
+    margin-top: -28px;
+}
+
+.float-card-title {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    text-align: center;
+    padding: 14px 12px 16px;
+    color: #ffffff;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: clamp(0.9rem, 1.6vw, 1.35rem);
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+}
+
+@keyframes floatBob {
+    0%, 100% { translate: 0 0; rotate: -0.6deg; }
+    50% { translate: 0 -18px; rotate: 0.6deg; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .float-card {
+        animation: none;
+    }
+}
+
 /* Rounded font applied per-page */
 body.font-round {
     font-family: 'Quicksand', var(--font);
@@ -608,6 +686,21 @@ video {
 
     .video-card {
         width: min(320px, 100%);
+    }
+
+    /* Floating cards: single column, no scatter offsets on phones */
+    .float-field {
+        margin-top: 44px;
+        gap: 26px;
+    }
+
+    .float-card {
+        width: min(82vw, 360px);
+    }
+
+    .float-card:nth-child(even),
+    .float-card:nth-child(3n) {
+        margin-top: 0;
     }
 
     /* Diagonal glass carousel: smaller cards + shorter scroll on phones */
